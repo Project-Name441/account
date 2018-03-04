@@ -17,8 +17,9 @@ class Account : public QObject
 {
     Q_OBJECT
 
+protected:
+    Account();
 private:
-
     int m_budget;                     //stores monthly budget
     int savingsPercentage;            //will be used to calculate monthly savings
     int m_savings;                    //stores monthly savings
@@ -26,10 +27,10 @@ private:
     int m_spendings;                  //stores monthly spendings
     static bool failure;
     static bool success;
-
+    static Account* _instance;        //used to point to a new or existing account
 public:
+    static Account* Instance();       //will be used to make sure there is only one account
 
-    Account();                        //default constructor
 
     bool verifyNumber(int input);     //will make sure inputs are not negative
     //void addTab(...);               //could be used later
@@ -51,6 +52,7 @@ public slots:
 
 signals:
     //the following functions will send out signals to make changes to diagrams
+    //only need one
     void budgetChanged(int b);
     void spendingsChanged(int spendings);
     void savingsChanged(int savings);

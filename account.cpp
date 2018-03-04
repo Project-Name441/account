@@ -9,6 +9,7 @@
 
 bool Account::failure = false;
 bool Account::success = true;
+Account* Account::_instance = 0;
 
 /* PURPOSE:  The default constructor of Account.
  * Author: Jose Quirarte
@@ -16,11 +17,31 @@ bool Account::success = true;
  * */
 Account::Account()
 {
-    m_budget = 0;
-    m_spendings = 0;
-    m_savings = 0;
-    savingsPercentage = 0;
+
+    // I hardcoded some numbers so that we dont have to use setters for testing purposes
+    m_budget = 2000;
+    m_spendings = 500;
+    m_savings = 1000;
+    savingsPercentage = 50;
 }
+
+/*PURPOSE: This function is used to make sure there is only one account per user?(probably a better way to
+ * state this)
+ * if an account has not been created make _instance point to a new account and return the pointer
+ * otherwise just return instance since an account already exists
+ * Author: Jose Quirarte
+ * Date: 3/3/18
+ *
+ * */
+Account* Account::Instance()
+{
+
+    if(_instance == 0)
+        _instance = new Account();
+
+    return _instance;
+}
+
 
 /* PURPOSE:  verifyNumber will check to see if the user inputted
  * value is valid. It will return failure if the value is negative.
@@ -39,9 +60,9 @@ bool Account::verifyNumber(int input)
     return success;
 }
 
-/* PURPOSE: It will set the monthly budget to what the user enters as an input,
- * if the input is valid. If the input is invalid, It will return failure.
- * Otherwise sets the monthly budget, informs a slot of the change and returns success.
+/* PURPOSE: It will set the monthly budget, informs a slot of the change and returns success
+ * if certain conditions are met.
+ * Otherwise returns failure.
  *
  * PARAMETER: b is the what the user wants to set the monthly budget to.
  * Author: Jose Quirarte
@@ -49,19 +70,21 @@ bool Account::verifyNumber(int input)
  * */
 bool Account::setBudget(int b)
 {
-    if(verifyNumber(b) == failure)
-        return failure;
-
-    m_budget = b;
-    emit budgetChanged(b);
-    return success;
+    //we dont want m_budget and b to be the same in case of cyclic connections to avoid infinite looping
+    //and we also want to make sure b is positive
+    if(verifyNumber(b) == success && m_budget != b)
+        {
+            m_budget = b;
+            emit budgetChanged(b);
+            return success;
+        }
+    return failure;
 }
 
 /* PURPOSE: It will set monthly savings to the product of
- * monthly budget and savingsPercent (after savingsPercent has been converted).
- * If savingsPercent is not a valid input, then it returns failure.
- * Otherwise the product is set to monthly savings,
- * it informs a slot of the change, and returns success;
+ * monthly budget and savingsPercent (after savingsPercent has been converted),
+ * it informs a slot of the change, and returns success if certain conditions are met;
+ * otherwise returns failure.
  *
  * PARAMETER: savingsPercent is the percentage of the budget the user wants to save
  * Author: Jose Quirarte
@@ -70,19 +93,24 @@ bool Account::setBudget(int b)
 
 bool Account::setSavings(int savingsPercent)
 {
-   if(verifyNumber(savingsPercent) == failure)
-        return failure;
+    //we convert savingsPercent to decimal and then multiply it with the monthly budget to get
+    // the new savings amount
+    int new_savings = m_budget * ((double) savingsPercent / 100);
 
-   savingsPercentage = savingsPercent;
-   m_savings = m_budget * ((double) savingsPercent / 100);
-   emit savingsChanged(m_budget * ((double)savingsPercent / 100));
-   return success;
-
+    //we dont want m_savings and new_savings to be the same in case of cyclic connections to avoid infinte looping
+    //and we also want to make sure new_savings is positive
+    if(m_savings != new_savings && verifyNumber(new_savings) == success)
+        {
+            savingsPercentage = savingsPercent;
+            m_savings = new_savings;
+            emit savingsChanged(new_savings);
+            return success;
+        }
+    return failure;
 }
 
-/* PURPOSE: It will set the monthly spendings to what the user enters as an input,
- * if the input is valid. If the input is invalid, It will return failure.
- * Otherwise sets the monthly spendings, informs a slot of the change and returns success.
+/* PURPOSE: It will set the monthly spendings, inform a slot of the change and returns success
+ * if certain conditions are met. Otherwise returns failure.
  *
  * PARAMETER: spendings is the what the user wants to set the monthly spending to.
  * Author: Jose Quirarte
@@ -90,12 +118,16 @@ bool Account::setSavings(int savingsPercent)
  * */
 bool Account::setSpendings(int spendings)
 {
-    if(verifyNumber(spendings) == failure)
-        return failure;
+    //we dont want m_spendings and spendings to be the same in case of cyclic connections to avoid infinite looping
+    //and we also want to make it sure it's positive
+    if(m_spendings != spendings && verifyNumber(spendings) == success)
+    {
+        m_spendings = spendings;
+        emit spendingsChanged(spendings);
+        return success;
+    }
 
-    m_spendings = spendings;
-    emit spendingsChanged(spendings);
-    return success;
+    return failure;
 }
 
 /* PURPOSE: It will return the monthly budget.
@@ -133,4 +165,3 @@ int Account::getSavingsPercent() const
 {
     return savingsPercentage;
 }
-
