@@ -165,3 +165,20 @@ int Account::getSavingsPercent() const
 {
     return savingsPercentage;
 }
+
+//returns the number of categories the user has...fix later
+int Account::getNumCategories() const
+{
+    int numOfSpendings = 0;
+
+    for(int i = 0; (unsigned)i < expenditures.size(); i++)
+        numOfSpendings++;
+
+    return numOfSpendings;
+}
+
+//returns an object of type Category
+Category Account::getACategory(int index) const
+{
+    return expenditures[index];
+}
