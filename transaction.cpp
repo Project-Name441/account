@@ -9,26 +9,26 @@ transactionName = "";
 transactionType = "";
 }
 
-QString Transaction::getTransactionType()
+QString Transaction::getTransactionType() const
 {
     return transactionType;
 }
-double Transaction::getTransactionAmount()
+double Transaction::getTransactionAmount() const
 {
     return transactionAmount;
 }
 
-QString Transaction::getTransactionCategory()
+QString Transaction::getTransactionCategory() const
 {
     return transactionCategory;
 }
 
-QString Transaction::getTransactionDate()
+QString Transaction::getTransactionDate() const
 {
     return transactionDate;
 }
 
-QString Transaction::getTransactionName()
+QString Transaction::getTransactionName() const
 {
     return transactionName;
 }
