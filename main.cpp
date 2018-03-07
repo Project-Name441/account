@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QObject>
 #include <iostream>
 #include "account.h"
+#include "testsignal.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -46,7 +48,16 @@ int main(int argc, char *argv[])
     cout << "Percent: " << PcurrentAccount -> getSavingsPercent() << " % " << endl;
     cout << " total expenses: " << PcurrentAccount -> getSpendings() << endl << endl;
 
+    //testing old signal function, will no longer work with new signal
+/*
+    TestSignal b;
+    QObject::connect(PcurrentAccount, &Account::accountModified, &b, &TestSignal::setNum);
+    PcurrentAccount -> setSpendings(3500);
 
+    //signals should be the same
+    cout << "NEW spendings: " << PcurrentAccount ->getSpendings() << endl;
+    cout << b.getNum() << endl;
+*/
     return 0;
 
 

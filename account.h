@@ -12,6 +12,7 @@
 #define ACCOUNT_H
 #include <vector>
 #include <QObject> //allows usage of signals and slots
+#include <QString>
 using namespace std;
 
 #include "category.h"
@@ -23,11 +24,13 @@ class Account : public QObject
 protected:
     Account();
 private:
+    int m_income;                     //monthly income
     int m_budget;                     //stores monthly budget
     int savingsPercentage;            //will be used to calculate monthly savings
     int m_savings;                    //stores monthly savings
-    vector<Category> expenditures;
-    int m_spendings;                  //stores monthly spendings
+    vector<Category> expenditures;    //spendings
+    vector<Category> revenue;         //income transactions
+    int m_spendings;                  //we need to discuss this
     static bool failure;
     static bool success;
     static Account* _instance;        //used to point to a new or existing account
@@ -36,7 +39,7 @@ public:
 
 
     bool verifyNumber(int input);     //will make sure inputs are not negative
-    //void addTab(...);               //could be used later
+    void addCategory(QString s);               //could be used later
 
     //getters
     int getBudget() const;
@@ -46,6 +49,7 @@ public:
     int getSavingsPercent() const;
     int getNumCategories() const;                    //acts as getNumExpenses from the professors code
     Category getACategory(int index) const;        // acts as getExpense from the code
+    double getTotalSpendingsFromAllCategories() const;
 
     //invokeMenu();                   //could be used later
     //invokeChart();                  //could be used later
@@ -53,16 +57,13 @@ public:
 public slots:
     //setters
     bool setBudget(int b);
-    bool setSpendings(int spendings);
+    bool setSpendings(int spendings);  //might not be necessary
     bool setSavings(int savingPercent);
 
 signals:
     //the following functions will send out signals to make changes to diagrams
     //only need one
-    void budgetChanged(int b);
-    void spendingsChanged(int spendings);
-    void savingsChanged(int savings);
-
+    void accountModified();
 };
 
 #endif // ACCOUNT_H

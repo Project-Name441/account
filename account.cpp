@@ -23,6 +23,8 @@ Account::Account()
     m_spendings = 500;
     m_savings = 1000;
     savingsPercentage = 50;
+
+
 }
 
 /*PURPOSE: This function is used to make sure there is only one account per user?(probably a better way to
@@ -75,7 +77,7 @@ bool Account::setBudget(int b)
     if(verifyNumber(b) == success && m_budget != b)
         {
             m_budget = b;
-            emit budgetChanged(b);
+            emit accountModified();
             return success;
         }
     return failure;
@@ -103,7 +105,7 @@ bool Account::setSavings(int savingsPercent)
         {
             savingsPercentage = savingsPercent;
             m_savings = new_savings;
-            emit savingsChanged(new_savings);
+            emit accountModified();
             return success;
         }
     return failure;
@@ -123,7 +125,7 @@ bool Account::setSpendings(int spendings)
     if(m_spendings != spendings && verifyNumber(spendings) == success)
     {
         m_spendings = spendings;
-        emit spendingsChanged(spendings);
+        emit accountModified();
         return success;
     }
 
@@ -169,16 +171,32 @@ int Account::getSavingsPercent() const
 //returns the number of categories the user has...fix later
 int Account::getNumCategories() const
 {
-    int numOfSpendings = 0;
+    int numOfCategories = 0;
 
     for(int i = 0; (unsigned)i < expenditures.size(); i++)
-        numOfSpendings++;
+        numOfCategories++;
 
-    return numOfSpendings;
+    return numOfCategories;
 }
 
 //returns an object of type Category
 Category Account::getACategory(int index) const
 {
     return expenditures[index];
+}
+
+void Account::addCategory(QString s)
+{
+    Category temp;
+    temp.setCategoryName(s);
+    expenditures.push_back(temp);
+}
+
+double Account::getTotalSpendingsFromAllCategories() const
+{
+    double total = 0;
+    for(int i = 0; (unsigned)i < expenditures.size();i++)
+        total+=expenditures[i].totalTransactions();
+
+    return total;
 }

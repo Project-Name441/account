@@ -27,11 +27,11 @@ public:
     void setTransactionType(QString s);
     
     //getters
-    QString getTransactionName();
-    QString getTransactionCategory();
-    QString getTransactionDate();
-    double getTransactionAmount();
-    QString getTransactionType();
+    QString getTransactionName() const;
+    QString getTransactionCategory() const;
+    QString getTransactionDate() const;
+    double getTransactionAmount() const;
+    QString getTransactionType() const;
 };
 
 #endif // TRANSACTION_H
