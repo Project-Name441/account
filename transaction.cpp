@@ -13,7 +13,7 @@ QString Transaction::getTransactionType() const
 {
     return transactionType;
 }
-double Transaction::getTransactionAmount() const
+int Transaction::getTransactionAmount() const
 {
     return transactionAmount;
 }
@@ -33,7 +33,7 @@ QString Transaction::getTransactionName() const
     return transactionName;
 }
 
-void Transaction::setTransactionAmount(double number)
+void Transaction::setTransactionAmount(int number)
 {
     transactionAmount = number;
 }
