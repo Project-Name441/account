@@ -49,7 +49,8 @@ public:
     int getSavingsPercent() const;
     int getNumCategories() const;                    //acts as getNumExpenses from the professors code
     Category getACategory(int index) const;        // acts as getExpense from the code
-    double getTotalSpendingsFromAllCategories() const;
+    int getTotalSpendingsFromAllCategories() const;
+    int getIncome();
 
     //invokeMenu();                   //could be used later
     //invokeChart();                  //could be used later
@@ -59,6 +60,7 @@ public slots:
     bool setBudget(int b);
     bool setSpendings(int spendings);  //might not be necessary
     bool setSavings(int savingPercent);
+    bool setIncome(int i);
 
 signals:
     //the following functions will send out signals to make changes to diagrams

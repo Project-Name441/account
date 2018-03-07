@@ -19,6 +19,7 @@ Account::Account()
 {
 
     // I hardcoded some numbers so that we dont have to use setters for testing purposes
+    m_income = 4000;
     m_budget = 2000;
     m_spendings = 500;
     m_savings = 1000;
@@ -97,7 +98,7 @@ bool Account::setSavings(int savingsPercent)
 {
     //we convert savingsPercent to decimal and then multiply it with the monthly budget to get
     // the new savings amount
-    int new_savings = m_budget * ((double) savingsPercent / 100);
+    int new_savings = m_income * ((double) savingsPercent / 100);
 
     //we dont want m_savings and new_savings to be the same in case of cyclic connections to avoid infinte looping
     //and we also want to make sure new_savings is positive
@@ -179,6 +180,7 @@ int Account::getNumCategories() const
     return numOfCategories;
 }
 
+
 //returns an object of type Category
 Category Account::getACategory(int index) const
 {
@@ -192,11 +194,27 @@ void Account::addCategory(QString s)
     expenditures.push_back(temp);
 }
 
-double Account::getTotalSpendingsFromAllCategories() const
+int Account::getTotalSpendingsFromAllCategories() const
 {
-    double total = 0;
+    int total = 0;
     for(int i = 0; (unsigned)i < expenditures.size();i++)
         total+=expenditures[i].totalTransactions();
 
     return total;
+}
+
+bool Account::setIncome(int i)
+{
+    if(verifyNumber(i) == success && m_budget != i)
+        {
+            m_income = i;
+            emit accountModified();
+            return success;
+        }
+    return failure;
+}
+
+int Account::getIncome()
+{
+    return m_income;
 }

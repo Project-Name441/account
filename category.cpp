@@ -17,9 +17,9 @@ void Category::addTransaction(QString category, QString name, QString date, doub
 }
 
 //gets the total amount from all transactions
-double Category::totalTransactions() const
+int Category::totalTransactions() const
 {
-    double total = 0;
+    int total = 0;
     for(int i = 0; (unsigned)i < Transactions.size(); i++)
         total += Transactions[i].getTransactionAmount();
 

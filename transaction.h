@@ -15,7 +15,7 @@ private:
    QString transactionName;     //the name of the transaction e.g. beer
    QString transactionDate;
    QString transactionType;     // whether it's an income or expense related transaction
-   double transactionAmount;
+   int transactionAmount;
    
 public:
     Transaction();
@@ -23,14 +23,14 @@ public:
     void setTransactionCategory(QString s);
     void setTransactionName(QString s);
     void setTransactionDate(QString s);
-    void setTransactionAmount(double number);
+    void setTransactionAmount(int number);
     void setTransactionType(QString s);
     
     //getters
     QString getTransactionName() const;
     QString getTransactionCategory() const;
     QString getTransactionDate() const;
-    double getTransactionAmount() const;
+    int getTransactionAmount() const;
     QString getTransactionType() const;
 };
 
