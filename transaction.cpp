@@ -1,5 +1,11 @@
 #include "transaction.h"
 
+
+/*
+ *Default constructor
+ * Author: Jose Quirarte
+ * Date: 3/5/18
+ * */
 Transaction::Transaction()
 {
 transactionAmount = 0.00;

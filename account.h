@@ -29,7 +29,7 @@ private:
     int savingsPercentage;            //will be used to calculate monthly savings
     int m_savings;                    //stores monthly savings
     vector<Category> expenditures;    //spendings
-    vector<Category> revenue;         //income transactions
+    //vector<Category> revenue;         //income transactions
     int m_spendings;                  //we need to discuss this
     static bool failure;
     static bool success;
@@ -39,18 +39,19 @@ public:
 
 
     bool verifyNumber(int input);     //will make sure inputs are not negative
-    void addCategory(QString s);               //could be used later
+    void addCategory(QString s);      //adds a category to one of the vectors
 
     //getters
     int getBudget() const;
     int getSavings() const;
-    int getSpendings() const;     //might have to change this to something else talk to team
+    int getSpendings() const;         //might have to change this to something else talk to team
 
     int getSavingsPercent() const;
-    int getNumCategories() const;                    //acts as getNumExpenses from the professors code
-    Category getACategory(int index) const;        // acts as getExpense from the code
+    int getNumCategories() const;                    //will return the number of categories in expenditures
+    Category getACategory(int index) const;          // will return a category object specified by the index
     int getTotalSpendingsFromAllCategories() const;
     int getIncome();
+    vector<Category> getExpenditures(); //returns the expenditures vector
 
     //invokeMenu();                   //could be used later
     //invokeChart();                  //could be used later
@@ -63,8 +64,7 @@ public slots:
     bool setIncome(int i);
 
 signals:
-    //the following functions will send out signals to make changes to diagrams
-    //only need one
+    //the following function will send out signal to inform diagrams to update themselves
     void accountModified();
 };
 

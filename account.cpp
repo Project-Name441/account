@@ -25,6 +25,7 @@ Account::Account()
     m_savings = 1000;
     savingsPercentage = 50;
 
+    addCategory("");
 
 }
 
@@ -169,24 +170,42 @@ int Account::getSavingsPercent() const
     return savingsPercentage;
 }
 
-//returns the number of categories the user has...fix later
+/*PURPOSE:It will return the number of categories the user has created.
+ * Author: Jose Quirarte
+ * Date: 3/5/18
+ * */
 int Account::getNumCategories() const
 {
     int numOfCategories = 0;
 
+    //unsigned was used to get rid of warning that qt threw because of comparison
+    //between signed and unsigned numbers
     for(int i = 0; (unsigned)i < expenditures.size(); i++)
         numOfCategories++;
+
+    //couldn't this be refactored to just
+    //return expenditures.size()?
 
     return numOfCategories;
 }
 
-
-//returns an object of type Category
+/* PURPOSE: It will return a Category at the specified index.
+ * PARAMETER: index will used to to figure out which category to return
+ * Author: Jose Quirarte
+ * Date: 3/5/18
+ * */
 Category Account::getACategory(int index) const
 {
     return expenditures[index];
 }
 
+
+/* PURPOSE: It will create a temp category, rename it using the parameter, and
+ * add it to the vector.
+ * PARAMETER: s is the name of the new category
+ * Author: Jose Quirarte
+ * Date: 3/5/18
+ * */
 void Account::addCategory(QString s)
 {
     Category temp;
@@ -194,15 +213,24 @@ void Account::addCategory(QString s)
     expenditures.push_back(temp);
 }
 
+
+/* PURPOSE: It will add up all the total Amounts from each category and then return the sum.
+ * Author: Jose Quirarte
+ * Date:3/5/18
+ * */
 int Account::getTotalSpendingsFromAllCategories() const
 {
     int total = 0;
+    //used unsigned to get rid of warning qt threw for comparison between signed and unsigned numbers
     for(int i = 0; (unsigned)i < expenditures.size();i++)
         total+=expenditures[i].totalTransactions();
 
     return total;
 }
 
+/*PURPOSE: It will set the income to what the user inputted for income
+ *
+ * */
 bool Account::setIncome(int i)
 {
     if(verifyNumber(i) == success && m_budget != i)
@@ -217,4 +245,10 @@ bool Account::setIncome(int i)
 int Account::getIncome()
 {
     return m_income;
+}
+
+//returns the vector of categories
+vector<Category> Account::getExpenditures()
+{
+    return expenditures;
 }
