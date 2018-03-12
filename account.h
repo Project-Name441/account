@@ -30,7 +30,7 @@ private:
     int m_savings;                    //stores monthly savings
     vector<Category> expenditures;    //spendings
     //vector<Category> revenue;         //income transactions
-    int m_spendings;                  //we need to discuss this
+
     static bool failure;
     static bool success;
     static Account* _instance;        //used to point to a new or existing account
@@ -44,14 +44,13 @@ public:
     //getters
     int getBudget() const;
     int getSavings() const;
-    int getSpendings() const;         //might have to change this to something else talk to team
 
     int getSavingsPercent() const;
     int getNumCategories() const;                    //will return the number of categories in expenditures
     Category getACategory(int index) const;          // will return a category object specified by the index
     int getTotalSpendingsFromAllCategories() const;
     int getIncome();
-    vector<Category> getExpenditures(); //returns the expenditures vector
+    vector<Category> getExpenditures();              //returns the expenditures vector
 
     //invokeMenu();                   //could be used later
     //invokeChart();                  //could be used later
@@ -59,7 +58,6 @@ public:
 public slots:
     //setters
     bool setBudget(int b);
-    bool setSpendings(int spendings);  //might not be necessary
     bool setSavings(int savingPercent);
     bool setIncome(int i);
 
