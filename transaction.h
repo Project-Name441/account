@@ -20,11 +20,11 @@ private:
 public:
     Transaction();
     //setters
-    void setTransactionCategory(QString s);
-    void setTransactionName(QString s);
-    void setTransactionDate(QString s);
+    void setTransactionCategory(QString category);
+    void setTransactionName(QString name);
+    void setTransactionDate(QString date);
     void setTransactionAmount(int number);
-    void setTransactionType(QString s);
+    void setTransactionType(QString type);
     
     //getters
     QString getTransactionName() const;

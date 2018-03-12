@@ -24,7 +24,7 @@ private:
 
 public:
     Category();
-    void setCategoryName(QString s);
+    void setCategoryName(QString name);
     QString getCategoryName() const;
     void addTransaction(QString category, QString name, QString date, double amount, QString type);
     //void editTransaction(int index);  talk to group about how to implement this function
