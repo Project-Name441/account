@@ -42,9 +42,9 @@ int Category::totalTransactions() const
     return total;
 }
 
-void Category::setCategoryName(QString s)
+void Category::setCategoryName(QString name)
 {
-    name = s;
+    name = name;
 }
 
 

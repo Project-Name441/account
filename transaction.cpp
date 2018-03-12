@@ -44,22 +44,22 @@ void Transaction::setTransactionAmount(int number)
     transactionAmount = number;
 }
 
-void Transaction::setTransactionCategory(QString s)
+void Transaction::setTransactionCategory(QString category)
 {
     transactionCategory = s;
 }
 
-void Transaction::setTransactionName(QString s)
+void Transaction::setTransactionName(QString name)
 {
     transactionName = s;
 }
 
-void Transaction::setTransactionDate(QString s)
+void Transaction::setTransactionDate(QString date)
 {
-    transactionDate = s;
+    transactionDate = date;
 }
 
-void Transaction::setTransactionType(QString s)
+void Transaction::setTransactionType(QString type)
 {
     transactionType = s;
 }
