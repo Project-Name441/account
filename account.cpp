@@ -25,8 +25,10 @@ Account::Account()
     m_savings = 1000;
     savingsPercentage = 50;
 
-    addCategory("");
-
+    addCategory("Bills");
+    addCategory("Grocery/Food");
+    addCategory("Gas");
+    addCategory( "Misc");
 }
 
 /*PURPOSE: This function is used to make sure there is only one account per user?(probably a better way to
@@ -113,26 +115,7 @@ bool Account::setSavings(int savingsPercent)
     return failure;
 }
 
-/* PURPOSE: It will set the monthly spendings, inform a slot of the change and returns success
- * if certain conditions are met. Otherwise returns failure.
- *
- * PARAMETER: spendings is the what the user wants to set the monthly spending to.
- * Author: Jose Quirarte
- * Date: 2/24/18
- * */
-bool Account::setSpendings(int spendings)
-{
-    //we dont want m_spendings and spendings to be the same in case of cyclic connections to avoid infinite looping
-    //and we also want to make it sure it's positive
-    if(m_spendings != spendings && verifyNumber(spendings) == success)
-    {
-        m_spendings = spendings;
-        emit accountModified();
-        return success;
-    }
 
-    return failure;
-}
 
 /* PURPOSE: It will return the monthly budget.
  * Author: Jose Quirarte
@@ -152,14 +135,6 @@ int Account::getSavings() const
     return m_savings;
 }
 
-/* PURPOSE: It will return the monthly spendings.
- * Author: Jose Quirarte
- * Date: 2/24/18
- * */
-int Account::getSpendings() const
-{
-    return m_spendings;
-}
 
 /* PURPOSE: It will return the savings Percentage.
  * Author: Jose Quirarte
